@@ -5,3 +5,4 @@ OS: Debian 12
 Root version: 6.32.08
 Geant4 version: 11.3.2
 
+Follow the instructions in the original repo for installation. 
