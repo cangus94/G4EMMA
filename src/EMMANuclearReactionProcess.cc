@@ -21,7 +21,7 @@
 #include "EMMANuclearReactionDataSet.hh"
 #include "G4ProductionCutsTable.hh"
 #include "G4HadronicException.hh"
-#include "G4HadronicDeprecate.hh"
+//#include "G4HadronicDeprecate.hh"
 
 #include "EMMANuclearReactionProcess.hh"
 #include "EMMANuclearReactionTwoBody.hh"
@@ -80,10 +80,10 @@ EMMANuclearReactionProcess::PostStepDoIt(const G4Track& track,
 
   G4Material* material = track.GetMaterial();
   G4Nucleus* targNucleus = GetTargetNucleusPointer();
-
+  G4HadProjectile projectile(*dynParticle);
 
   // Select element
-  G4Element* elm = 0;
+  const G4Element* elm = 0;
   try {
     elm = GetCrossSectionDataStore()->SampleZandA(dynParticle, material, *targNucleus);
   }
@@ -102,7 +102,7 @@ EMMANuclearReactionProcess::PostStepDoIt(const G4Track& track,
   */
   G4HadronicInteraction* hadi = 0;
   try {
-    hadi = ChooseHadronicInteraction( kineticEnergy, material, elm ); 
+    hadi = ChooseHadronicInteraction(projectile, *targNucleus, material, elm ); 
   }
   catch(G4HadronicException & aE) {
     G4ExceptionDescription ed;

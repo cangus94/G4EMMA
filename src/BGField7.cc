@@ -7,6 +7,7 @@
 #include <fstream>
 
 #include "EMMAGlobalField.hh"
+using namespace CLHEP;
 
 //BGField7::BGField7(G4double xoffset, G4double zoffset,G4double zbefore,G4double zafter)
 

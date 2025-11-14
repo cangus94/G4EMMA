@@ -49,6 +49,8 @@
 
 #include <G4Event.hh>
 
+using namespace CLHEP;
+
 // global variables 
 G4double currentCharge = 0.0; // default value is 0
 

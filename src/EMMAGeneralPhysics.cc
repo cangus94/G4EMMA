@@ -103,9 +103,10 @@ void EMMAGeneralPhysics::ConstructProcess()
 {
   // Add Decay Process
    G4Decay* theDecayProcess = new G4Decay();  
-  theParticleIterator->reset();
-  while( (*theParticleIterator)() ){
-    G4ParticleDefinition* particle = theParticleIterator->value();
+  //theParticleIterator->reset();
+  GetParticleIterator()->reset();
+  while( (*GetParticleIterator())() ){
+    G4ParticleDefinition* particle = GetParticleIterator()->value();
     G4ProcessManager* pmanager = particle->GetProcessManager();
     if (theDecayProcess->IsApplicable(*particle)) {
       pmanager ->AddProcess(theDecayProcess);
@@ -136,9 +137,11 @@ void EMMAGeneralPhysics::AddStepMax()
 	//G4StepLimiter* stepLimiter = new G4StepLimiter();
 	////G4UserSpecialCuts* userCuts = new G4UserSpecialCuts();
 	
-	theParticleIterator->reset();
-	while ((*theParticleIterator)()){
-		G4ParticleDefinition* particle = theParticleIterator->value();
+	//theParticleIterator->reset();
+	GetParticleIterator()->reset();
+	
+	while ((*GetParticleIterator())()){
+		G4ParticleDefinition* particle = GetParticleIterator()->value();
 		G4ProcessManager* pmanager = particle->GetProcessManager();
 		
 		if (stepMaxProcess->IsApplicable(*particle) && !particle->IsShortLived())

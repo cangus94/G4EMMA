@@ -22,7 +22,8 @@ EMMANuclearReactionDataSet::EMMANuclearReactionDataSet(const G4String& nam
 				 , G4double cs )
  : G4VCrossSectionDataSet(nam)
 {
-  theHadronCrossSections = G4HadronCrossSections::Instance(); 
+  //theHadronCrossSections = G4HadronCrossSections::Instance(); 
+  auto theHadronCrossSections = new G4IonsShenCrossSection(); 
 
   Z1rea = Z1; A1rea = A1;
   Z2rea = Z2; A2rea = A2;

@@ -92,6 +92,7 @@ const char* G4ScreenedCoulombCrossSectionInfo::CVSFileVers() { return
 
 #include "G4ParticleTypes.hh"
 #include "G4ParticleTable.hh"
+#include "G4IonTable.hh"
 #include "G4VParticleChange.hh"
 #include "G4ParticleChangeForLoss.hh"
 #include "G4DataVector.hh"
@@ -107,7 +108,7 @@ const char* G4ScreenedCoulombCrossSectionInfo::CVSFileVers() { return
 
 #include "G4EmProcessSubType.hh"
 
-#include "G4RangeTest.hh"
+//#include "G4RangeTest.hh"
 #include "G4ParticleDefinition.hh"
 #include "G4DynamicParticle.hh"
 #include "G4ProcessManager.hh"
@@ -218,7 +219,9 @@ G4ParticleDefinition* G4ScreenedCoulombCrossSection::SelectRandomUnweightedTarge
         if (p != targetMap.end()) {
                 target=(*p).second;
         } else{
-                target=G4ParticleTable::GetParticleTable()->GetIon(Z, N, 0.0);        
+                //target=G4ParticleTable::GetParticleTable()->GetIon(Z, N, 0.0);
+                //target = G4ParticleTable::GetParticleTable()->GetIonTable()->GetIon(Z, N, 0.0);
+                target = G4IonTable::GetIonTable()->GetIon(Z, N, 0.0);
                 targetMap[Z*1000+N]=target;
         }
         return target;
@@ -884,7 +887,8 @@ void G4NativeScreenedCoulombCrossSection::LoadData(G4String screeningKey, G4int 
                 
                 for (G4int iEl=0; iEl<nMatElements; iEl++)
                 {
-                        G4Element* element = (*elementVector)[iEl];
+                        //G4Element* element = (*elementVector)[iEl];
+                        const G4Element* element = (*elementVector)[iEl];
                         G4int Z = (G4int) element->GetZ();
                         G4double a2=element->GetA()*(mole/gram);
                         

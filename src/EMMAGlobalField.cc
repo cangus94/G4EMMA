@@ -51,7 +51,7 @@ EMMAGlobalField* EMMAGlobalField::fObject = 0;
 EMMAGlobalField::EMMAGlobalField() : G4ElectroMagneticField(),
                              fMinStep(0.01*mm), fDeltaChord(3.0*mm),
                              fDeltaOneStep(0.01*mm), fDeltaIntersection(0.1*mm),
-                             fEpsMin(2.5e-7*mm), fEpsMax(0.05*mm),
+                             fEpsMin(2.5e-7*mm), fEpsMax(0.01*mm),
                              fEquation(0), fFieldManager(0),
                              fFieldPropagator(0), fStepper(0), fChordFinder(0)
 //EMMAGlobalField::EMMAGlobalField() : G4MagneticField(),

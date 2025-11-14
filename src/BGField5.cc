@@ -6,6 +6,7 @@
 #include "G4UnitsTable.hh"
 #include <fstream>
 #include "EMMAGlobalField.hh"
+using namespace CLHEP;
 
 //BGField5::BGField5(G4double xoffset, G4double zoffset,G4double zbefore,G4double zafter)
 

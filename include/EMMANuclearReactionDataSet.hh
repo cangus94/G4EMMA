@@ -17,7 +17,8 @@
 #define EMMANuclearReactionDataSet_h 1
 
 #include "G4VCrossSectionDataSet.hh"
-#include "G4HadronCrossSections.hh"
+//#include "G4HadronCrossSections.hh"
+#include "G4IonsShenCrossSection.hh"
 #include "G4DynamicParticle.hh"
 #include "G4Element.hh"
 
@@ -49,7 +50,7 @@ public:
   void Setcs(G4double x) { CrossSection=x; };
 
 private:
-  G4HadronCrossSections* theHadronCrossSections;
+  G4IonsShenCrossSection* theHadronCrossSections;
   G4double Z1rea,A1rea,Z2rea,A2rea,CrossSection;
 
 };

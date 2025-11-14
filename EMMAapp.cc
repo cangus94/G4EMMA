@@ -89,13 +89,13 @@ using namespace std;
 
 
 
-#ifdef G4VIS_USE
+//#ifdef G4VIS_USE
 #include "G4VisExecutive.hh"
-#endif
+//#endif
 
-#ifdef G4UI_USE
+//#ifdef G4UI_USE
 #include "G4UIExecutive.hh"
-#endif
+//#endif
 
 
 
@@ -140,11 +140,11 @@ int main(int argc,char** argv)
   // RunManager construction
   G4RunManager* runManager = new G4RunManager;
 
-#ifdef G4VIS_USE
+//#ifdef G4VIS_USE
   // Visualization manager construction
   G4VisManager* visManager = new G4VisExecutive;
   visManager->Initialize();
-#endif
+//#endif
 
   // mandatory user initialization classes
   runManager->SetUserInitialization(new EMMADetectorConstruction); //declare detector parts
@@ -167,13 +167,9 @@ int main(int argc,char** argv)
   runManager->SetUserAction(new EMMAEventAction);
 
   // start interactive session
-#ifdef G4VIS_USE
+//#ifdef G4VIS_USE
   G4UImanager* UImanager = G4UImanager::GetUIpointer();
-<<<<<<< HEAD
-  if (vis=="visON") UImanager->ApplyCommand("/control/execute visEMMA.mac");   
-=======
-  if (vis=="visON") UImanager->ApplyCommand("/control/execute visEMMA.mac");
->>>>>>> 328d247d31d8d865b2def4e9637587fef9e7941b
+  //if (vis=="visON") UImanager->ApplyCommand("/control/execute visEMMA.mac");
   //      UImanager->ApplyCommand("/control/execute BeamSetup.mac");
 
 
@@ -260,7 +256,6 @@ int main(int argc,char** argv)
   UImanager->ApplyCommand("/tracking/verbose 0");
   //-----------------------------------------
 
-
 //-----------------------------------------------------------------------------------------//
   //Following section is commented out so that the simulation doesn't run automatically.
   //To simulate beam run using command: /mydet/doBeam
@@ -269,16 +264,11 @@ int main(int argc,char** argv)
 
   // Run simulation
   //-----------------------------------------
-  //if (simtype==0) UImanager->ApplyCommand("/mydet/doBeam"); //simulate beam without reaction
-  //else if (simtype==1) {
-  //  UImanager->ApplyCommand("/mydet/doPrepare"); //simulate reaction depth of beam
-  //  UImanager->ApplyCommand("/mydet/doReaction"); //simulate recoils from reaction depth
-  //  if (crossSection1234>0.) UImanager->ApplyCommand("/mydet/doBeam");
-  //}
+
   // Run simulation for both beam particles and recoils
-  //UImanager->ApplyCommand("/mydet/doBeam"); //simulate beam without reaction
-  //UImanager->ApplyCommand("/mydet/doPrepare"); //simulate reaction depth of beam
-  //UImanager->ApplyCommand("/mydet/doReaction"); //simulate recoils from reaction depth
+  UImanager->ApplyCommand("/mydet/doBeam"); //simulate beam without reaction
+  UImanager->ApplyCommand("/mydet/doPrepare"); //simulate reaction depth of beam
+  UImanager->ApplyCommand("/mydet/doReaction"); //simulate recoils from reaction depth
   //-----------------------------------------
 //-----------------------------------------------------------------------------------------//
 
@@ -306,24 +296,19 @@ int main(int argc,char** argv)
   //-----------------------------------------
 
 
-#endif
-#ifdef G4UI_USE
+//#endif
+//#ifdef G4UI_USE
   G4UIExecutive* ui = new G4UIExecutive(argc, argv);
-<<<<<<< HEAD
-  //UImanager->ApplyCommand("/control/execute visEMMA.mac"); 
-  //UImanager->ApplyCommand("/control/execute macros/BeamSetup.mac"); 
-=======
   //UImanager->ApplyCommand("/control/execute visEMMA.mac");
   //UImanager->ApplyCommand("/control/execute macros/BeamSetup.mac");
->>>>>>> 328d247d31d8d865b2def4e9637587fef9e7941b
   ui->SessionStart();
   delete ui;
-#endif
+//#endif
 
 
-#ifdef G4VIS_USE
+//#ifdef G4VIS_USE
   delete visManager;
-#endif
+//#endif
 
   delete runManager;
   delete verbosity;

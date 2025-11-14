@@ -24,7 +24,7 @@ include(${Geant4_USE_FILE})
 #----------------------------------------------------------------------------
 # Find ROOT (optional package)
 #
-find_package(ROOT)
+find_package(ROOT REQUIRED)
 if(ROOT_FOUND)
   add_definitions(-DG4ANALYSIS_USE)   
 endif()
@@ -35,20 +35,16 @@ endif()
 #
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include 
                     ${Geant4_INCLUDE_DIR}
-                    ${ROOT_INCLUDE_DIR})
+                    ${ROOT_INCLUDE_DIR}
+                    ${CMAKE_CURRENT_SOURCE_DIR}/../../root/install/include)
 file(GLOB sources ${PROJECT_SOURCE_DIR}/src/*.cc)
 file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
 
 #----------------------------------------------------------------------------
 # Add the executable, and link it to the Geant4 libraries
 #
-<<<<<<< HEAD
-set(F2C_LIBRARIES /home/mwilliams/Documents/EMMA/G4EMMA/f2c/lib/libf2c.a)
-=======
-set(F2C_LIBRARIES /home/awen/G4EMMA/f2c/lib/libf2c.a)
-# make sure you put the right path to your libf2c here
 
->>>>>>> 328d247d31d8d865b2def4e9637587fef9e7941b
+set(F2C_LIBRARIES /data1/cangus/Geant4/G4EMMA/f2c/lib/libf2c.a)
 add_executable(EMMAapp EMMAapp.cc ${sources} ${headers})
 target_link_libraries(EMMAapp ${Geant4_LIBRARIES} ${ROOT_LIBRARIES} 
 ${F2C_LIBRARIES} )

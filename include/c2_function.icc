@@ -54,7 +54,7 @@ template <typename float_type> const std::string c2_function<float_type>::cvs_fi
 // this searches for f(x)=value, to make life a little easier than always searching for f(x)=0
 template <typename float_type> float_type c2_function<float_type>::find_root(float_type lower_bracket, float_type upper_bracket, 
 	float_type start, float_type value, int *error,
-	float_type *final_yprime, float_type *final_yprime2) const throw(c2_exception) 
+	float_type *final_yprime, float_type *final_yprime2) const
 {
 	// find f(x)=value within the brackets, using the guarantees of smoothness associated with a c2_function
 	// can use local f(x)=a*x**2 + b*x + c and solve quadratic to find root, then iterate
@@ -173,7 +173,7 @@ template <typename float_type> float_type c2_function<float_type>::find_root(flo
 */
 
 // the recursive part of the integrator is agressively designed to minimize copying of data... lots of pointers
-template <typename float_type> float_type c2_function<float_type>::integrate_step(c2_integrate_recur &rb) const throw(c2_exception)
+template <typename float_type> float_type c2_function<float_type>::integrate_step(c2_integrate_recur &rb) const
 {
 	std::vector< recur_item > &rb_stack=*rb.rb_stack; // heap-based stack of data for recursion
 	rb_stack.clear();
@@ -338,7 +338,7 @@ template <typename float_type> float_type c2_function<float_type>::integrate_ste
 }
 
 template <typename float_type> bool c2_function<float_type>::check_monotonicity(
-	const std::vector<float_type> &data, const char message[]) const throw(c2_exception)
+	const std::vector<float_type> &data, const char message[]) const
 {
 	size_t np=data.size();
 	if(np < 2) return false;  // one point has no direction!
@@ -354,7 +354,7 @@ template <typename float_type> bool c2_function<float_type>::check_monotonicity(
 	return rev;
 }
 
-template <typename float_type> void c2_function<float_type>::set_sampling_grid(const std::vector<float_type> &grid) throw(c2_exception)
+template <typename float_type> void c2_function<float_type>::set_sampling_grid(const std::vector<float_type> &grid)
 { 
 	bool rev=this->check_monotonicity(grid, "set_sampling_grid: sampling grid not monotonic");
 	
@@ -466,7 +466,7 @@ template <typename float_type> void c2_function<float_type>::
 }
 
 template <typename float_type> float_type c2_function<float_type>::integral(float_type amin, float_type amax, std::vector<float_type> *partials,
-	 float_type abs_tol, float_type rel_tol, int derivs, bool adapt, bool extrapolate) const throw(c2_exception)
+	 float_type abs_tol, float_type rel_tol, int derivs, bool adapt, bool extrapolate) const
 {
 	if(amin==amax) {
 		if(partials) partials->clear();
@@ -479,14 +479,14 @@ template <typename float_type> float_type c2_function<float_type>::integral(floa
 }
 
 template <typename float_type> c2_function<float_type> &c2_function<float_type>::normalized_function(float_type amin, float_type amax, float_type norm) 
-	const throw(c2_exception)
+	const
 {
 	float_type intg=integral(amin, amax);
 	return *new c2_scaled_function_p<float_type>(*this, norm/intg);
 }
 
 template <typename float_type> c2_function<float_type> &c2_function<float_type>::square_normalized_function(float_type amin, float_type amax, float_type norm)
-	const throw(c2_exception)
+	const
 {
 	c2_ptr<float_type> mesquared((*new c2_quadratic_p<float_type>(0., 0., 0., 1.))(*this));
 	
@@ -499,7 +499,7 @@ template <typename float_type> c2_function<float_type> &c2_function<float_type>:
 
 template <typename float_type> c2_function<float_type> &c2_function<float_type>::square_normalized_function(
 		float_type amin, float_type amax, const c2_function<float_type> &weight, float_type norm) 
-	const throw(c2_exception)
+	const
 {
 	c2_ptr<float_type> weighted((*new c2_quadratic_p<float_type>(0., 0., 0., 1.))(*this) * weight);
 
@@ -513,7 +513,7 @@ template <typename float_type> c2_function<float_type> &c2_function<float_type>:
 template <typename float_type> float_type c2_function<float_type>::partial_integrals(
 	std::vector<float_type> xgrid, std::vector<float_type> *partials,
 	float_type abs_tol, float_type rel_tol, int derivs, bool adapt, bool extrapolate) 
-	const throw(c2_exception)
+	const
 {
 	int np=xgrid.size();
 	
@@ -606,7 +606,7 @@ template <typename float_type> interpolating_function_p<float_type> & interpolat
 								bool lowerSlopeNatural, float_type lowerSlope, 
 								bool upperSlopeNatural, float_type upperSlope,
 								bool splined
-		) throw(c2_exception) 
+		)
 {
 	c2_ptr<float_type> keepme(*this);
 	X= x;
@@ -665,7 +665,7 @@ template <typename float_type> interpolating_function_p<float_type> & interpolat
 								bool lowerSlopeNatural, float_type lowerSlope, 
 								bool upperSlopeNatural, float_type upperSlope,
 								bool splined
-		) throw(c2_exception) 
+		)
 {
 	c2_ptr<float_type> keepme(*this);
 	
@@ -693,7 +693,7 @@ template <typename float_type> interpolating_function_p<float_type> & interpolat
 template <typename float_type> interpolating_function_p<float_type> & 
 	interpolating_function_p<float_type>::load_random_generator_function(
 	const std::vector<float_type> &bincenters, const c2_function<float_type> &binheights)
-	throw(c2_exception)
+	
 {	
 	c2_ptr<float_type> keepme(*this);
 
@@ -719,7 +719,7 @@ template <typename float_type> interpolating_function_p<float_type> &
 template <typename float_type> interpolating_function_p<float_type> & 
 	interpolating_function_p<float_type>::load_random_generator_bins(
 	const std::vector<float_type> &bins, const std::vector<float_type> &binheights, bool splined)
-	throw(c2_exception)
+	
 {	
 	c2_ptr<float_type> keepme(*this);
 
@@ -767,7 +767,7 @@ template <typename float_type> interpolating_function_p<float_type> &
 template <typename float_type> void interpolating_function_p<float_type>::spline(
 	 bool lowerSlopeNatural, float_type lowerSlope, 
 	 bool upperSlopeNatural, float_type upperSlope
-	 ) throw(c2_exception) 
+	 )
 {
 // construct spline tables here.  
 	// this code is a re-translation of the pythonlabtools spline algorithm from pythonlabtools.sourceforge.net
@@ -819,7 +819,7 @@ template <typename float_type> interpolating_function_p<float_type> &interpolati
 			float_type amin, float_type amax, float_type abs_tol, float_type rel_tol, 
 			bool lowerSlopeNatural, float_type lowerSlope, 
 			bool upperSlopeNatural, float_type upperSlope
- ) throw(c2_exception) 
+ ) 
 { 
 	c2_ptr<float_type> keepme(*this);
 	
@@ -899,7 +899,7 @@ template <typename float_type> interpolating_function_p<float_type> &interpolati
 //  This function is the reason for this class to exist
 // it computes the interpolated function, and (if requested) its proper first and second derivatives including all coordinate transforms
 template <typename float_type> float_type interpolating_function_p<float_type>::value_with_derivatives(
-				float_type x, float_type *yprime, float_type *yprime2) const throw(c2_exception)
+				float_type x, float_type *yprime, float_type *yprime2) const
 {
 	if(sampler_function.valid()) { 
 		// if this is non-null, we are sampling data for later, so just return raw function
@@ -1101,7 +1101,7 @@ template <typename float_type> c2_inverse_function_p<float_type>::c2_inverse_fun
 
 template <typename float_type> float_type c2_inverse_function_p<float_type>::value_with_derivatives(
 					float_type x, float_type *yprime, float_type *yprime2
-			) const throw(c2_exception)
+			) const
 {
 	float_type l=this->func->xmin();
 	float_type r=this->func->xmax();
@@ -1179,7 +1179,7 @@ template <typename float_type> c2_piecewise_function_p<float_type>::~c2_piecewis
 
 template <typename float_type> float_type c2_piecewise_function_p<float_type>::value_with_derivatives(
 		  float_type x, float_type *yprime, float_type *yprime2
-		  ) const throw(c2_exception)
+		  ) const
 {
 	
 	size_t np=functions.size();
@@ -1208,7 +1208,7 @@ template <typename float_type> float_type c2_piecewise_function_p<float_type>::v
 }
 
 template <typename float_type> void c2_piecewise_function_p<float_type>::append_function(
-	const c2_function<float_type> &func) throw(c2_exception)
+	const c2_function<float_type> &func) 
 {
 	c2_const_ptr<float_type> keepfunc(func);  //  manage function before we can throw any exceptions
 	if(functions.size()) { // check whether there are any gaps to fill, etc.
@@ -1305,7 +1305,7 @@ template <typename float_type> c2_connector_function_p<float_type>::~c2_connecto
 
 template <typename float_type> float_type c2_connector_function_p<float_type>::value_with_derivatives(
 	float_type x, float_type *yprime, float_type *yprime2
-	) const throw(c2_exception)
+	) const
 {
 	float_type x0=this->xmin(), x2=this->xmax();
 	float_type dx=(x-(x0+x2)*0.5)*fhinv;
@@ -1328,7 +1328,7 @@ template <typename float_type> float_type c2_connector_function_p<float_type>::v
 }
 
 // the recursive part of the sampler is agressively designed to minimize copying of data... lots of pointers
-template <typename float_type> void c2_function<float_type>::sample_step(c2_sample_recur &rb) const throw(c2_exception)
+template <typename float_type> void c2_function<float_type>::sample_step(c2_sample_recur &rb) const
 {
 	std::vector< recur_item > &rb_stack=*rb.rb_stack; // heap-based stack of data for recursion
 	rb_stack.clear();
@@ -1475,7 +1475,7 @@ template <typename float_type>  c2_piecewise_function_p<float_type> *
 	c2_function<float_type>::adaptively_sample(
 		float_type amin, float_type amax,
 		float_type abs_tol, float_type rel_tol,
-		int derivs, std::vector<float_type> *xvals, std::vector<float_type> *yvals) const throw(c2_exception)
+		int derivs, std::vector<float_type> *xvals, std::vector<float_type> *yvals) const
 {
 	c2_fblock<float_type> f0, f2;
 	c2_sample_recur rb;

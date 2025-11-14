@@ -144,11 +144,11 @@ const std::map<G4String,G4AttDef>* EMMADriftChamberHit::GetAttDefs() const
 			     "Physics","G4BestUnit","G4ThreeVector");
 
     G4String Ek("Ekin");
-    (*store)[Ekin] = G4AttDef(Ek, "Ekin",
+    (*store)["Ekin"] = G4AttDef(Ek, "Ekin",
 			      "Physics","G4BestUnit","G4double");
     
     G4String EDep("Edep");
-    (*store)[Edep] = G4AttDef(EDep, "Edep",
+    (*store)["Edep"] = G4AttDef(EDep, "Edep",
 			      "Physics","G4BestUnit","G4double");
 //    G4String TL("Track Length");
 //    (*store)[TrackLength] = G4AttDef(TL, "Track Length",

@@ -8,6 +8,7 @@
 #include <fstream>
 
 #include "EMMAElementField.hh"
+using namespace CLHEP;
 
 BGField1::BGField1(G4double xoffset, G4double zoffset,G4double zbefore,G4double zafter, G4LogicalVolume* lv, G4ThreeVector c) : EMMAElementField(c,lv)
 

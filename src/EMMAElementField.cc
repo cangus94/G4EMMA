@@ -94,8 +94,10 @@ void EMMAElementField::Construct()
 
   fNavigator->LocateGlobalPointAndSetup(fCenter,0,false);
 
-  G4TouchableHistoryHandle touchable = fNavigator->
-                                         CreateTouchableHistoryHandle();
+  //G4TouchableHistory* touchable = fNavigator->CreateTouchableHistoryHandle();
+  G4TouchableHandle handle = fNavigator->CreateTouchableHistoryHandle();
+  G4TouchableHistory* touchable = handle();
+
 
   G4int depth = touchable->GetHistoryDepth();
   for (G4int i = 0; i<depth; ++i) {
@@ -143,7 +145,7 @@ G4VisAttributes* EMMAElementField::GetVisAttribute(G4String color)
         }
    }
 
-   if (!p) p = new G4VisAttributes(G4VisAttributes::Invisible);
+   if (!p) p = new G4VisAttributes(G4VisAttributes::GetInvisible());
    p->SetDaughtersInvisible(false);
 
    return p;

@@ -78,6 +78,8 @@
 #include "G4FieldManager.hh"
 #include "G4UniformMagField.hh"
 
+#include "G4IonTable.hh"
+
 #include <fstream> //Stream class to both read and write from/to files
 using namespace std;
 #include <stdlib.h>     /* abort, NULL */
@@ -621,7 +623,7 @@ void EMMADetectorConstruction::CalculateScalingFactors()
 
   // rigidities of central trajectory
   G4double excitationEnergy = 0.*keV;
-  G4ParticleDefinition* ic = G4ParticleTable::GetParticleTable()->GetIon(centralZ,centralA,excitationEnergy);
+  G4ParticleDefinition* ic = G4IonTable::GetIonTable()->GetIon(centralZ,centralA,excitationEnergy);
 
   G4double mc = centralA*931.4940954;  //(centralZ - centralQ)*0.510998910;
   //G4double mc = ic->GetPDGMass();
@@ -734,7 +736,12 @@ void EMMADetectorConstruction::ReadUserInput()
 	  for (int i=0; i<nElem; i++) {
 	    iel = iel+1;
 	    // element name and symbol:
-	    sn = static_cast<ostringstream*>( &(ostringstream() << iel ) )->str();
+	    
+	    //sn = static_cast<ostringstream*>( &(ostringstream() << iel ) )->str();
+	    std::ostringstream oss;
+	    oss << iel;
+	    sn = oss.str();
+	    
 	    name = "userElement";
 	    name.append(sn);
 	    symbol = "uE";
@@ -775,7 +782,12 @@ void EMMADetectorConstruction::ReadUserInput()
 	  for (int i=0; i<nElem; i++) {
 	    iel = iel+1;
 	    // element name and symbol:
-	    sn = static_cast<ostringstream*>( &(ostringstream() << iel ) )->str();
+	    
+	    //sn = static_cast<ostringstream*>( &(ostringstream() << iel ) )->str();
+	    std::ostringstream oss;
+	    oss << iel;
+	    sn = oss.str();
+	    
 	    name = "userElement";
 	    name.append(sn);
 	    symbol = "uE";
@@ -815,7 +827,12 @@ void EMMADetectorConstruction::ReadUserInput()
 	  for (int i=0; i<nElem; i++) {
 	    iel = iel+1;
 	    // element name and symbol:
-	    sn = static_cast<ostringstream*>( &(ostringstream() << iel ) )->str();
+	    //sn = static_cast<ostringstream*>( &(ostringstream() << iel ) )->str();
+	    
+	    std::ostringstream oss;
+	    oss << iel;
+	    sn = oss.str();
+	    
 	    name = "userElement";
 	    name.append(sn);
 	    symbol = "uE";

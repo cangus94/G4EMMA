@@ -55,8 +55,13 @@
 //#include "F04StepMax.hh"
 
 
-//#include "HadronPhysicsQGSP_BERT.hh"
-//#include "HadronPhysicsQGSP_BIC.hh"
+#include "G4HadronPhysicsFTFP_BERT.hh"
+#include "G4HadronElasticPhysics.hh"
+#include "G4IonPhysics.hh"
+#include "G4IonElasticPhysics.hh"
+#include "G4EmStandardPhysicsWVI.hh"
+
+using namespace CLHEP;
 
 EMMAPhysicsList::EMMAPhysicsList():  G4VModularPhysicsList()
 {
@@ -87,10 +92,16 @@ EMMAPhysicsList::EMMAPhysicsList():  G4VModularPhysicsList()
   //  RegisterPhysics(  new EMMAMuonPhysics("muon"));
 
    // Hadron Physics ( Apply related processes to hadrons )
-  RegisterPhysics(  new EMMAHadronPhysics("hadron"));
+  RegisterPhysics(  new G4HadronPhysicsFTFP_BERT());	//inelastic
+  RegisterPhysics(  new G4HadronElasticPhysics());		//elastic
+  //RegisterPhysics(  new G4HadronElasticPhysics());		//multiple scattering
+  //RegisterPhysics(  new EMMAHadronPhysics("hadron"));
 
   // Ion Physics ( Apply related processes to ions )
-  RegisterPhysics( new EMMAIonPhysics("ion"));
+  RegisterPhysics( new G4IonPhysics());			//inelastic 
+  RegisterPhysics(new G4IonElasticPhysics());	//elastic
+  RegisterPhysics(new G4EmStandardPhysicsWVI());	//multiplescattering model
+  RegisterPhysics( new EMMAIonPhysics("ion"));	//needed for coulomb scattering
 
 }
 
