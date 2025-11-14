@@ -1,37 +1,7 @@
-To make and build, simply run the script cmake_script.sh
-./cmake_script.sh
+This is a fork of the original G4EMMA simulation. The main changes were to update the version of Geant4 as several versions have gone by since this was done last. There are numerous edits, most are minor. The main difference is that the LHEP physics models had long since been deprecated and needed to be replaced. I saw no reason not to use the recommended defaults (such as G4HadsronPhysicsFTFP_BERT).
 
-
-Some nominal values for EMMA: 
-
-Energy acceptance: +25% -17%
-m/q acceptance: +/- 3.5%
-mass dispersion in focal plane: 10 mm/%
-angular acceptance: +/- 3.6 deg by +/- 3.6 deg (15 msr)
-
-Functionality/Usage changes updates: 
-
-Nov. 5 Update: - Energy spectrum reading is implemented. To utilise it, 
-go to UserDir where the rest of the input files are located. The 
-spectrum, energySpectrum.dat, is located there. Note: it is currently 
-configured to ignore the energy input information (beam energy and 
-energy spread) in beam.dat. The energy spectrum reading also only 
-affects beam simulations, and not anything else like alphasource. 
-
-Nov. 8 Update: - Now, you can switch between if you read energy from a 
-user-defined spectrum (see above) or use the default gaussian energy that's 
-already implemented in beam.dat. 
-To change this option, simply change the last (9th) line in beam.dat to 
-SPEC or GAUS. It is set to SPEC by default. 
-
-Nov. 15 Update: - added a histogram as part of the output data file which
-displays the energy spectrum that was emitted from the target. Useful
-for verification purposes. 
-
-Nov. 19 Update: - added a histogram in the output file that displays the 
-location of beam emissions at the target plane (in terms of X and Y). 
-
-Nov. 21 Update: - added a histogram in the output file that displays the 
-x and y components of the particle direction unit vectors (Target Plane
-Transverse Emission Components).   
+This simulation compiled and ran succesfullly with:
+OS: Debian 12
+Root version: 6.32.08
+Geant4 version: 11.3.2
 
